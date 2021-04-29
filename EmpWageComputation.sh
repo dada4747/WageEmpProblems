@@ -2,7 +2,7 @@
 IS_PRESENT_FULL_TIME=1
 IS_PRESENT_PART_TIME=2
 EMP_RATE_PER_HR=20
-NO_OF_WORKING_DAYS=5
+NO_OF_WORKING_DAYS=20
 MAX_WORK_HOURS=20
 
 totalworkingdays=0
@@ -19,22 +19,15 @@ function  getWorkHours(){
         echo $empHrs
 
 }
-function caldailywage(){
-        emphrs=$!
-        wage=$((empHrs * EMP_RATE_PER_HR))
-        echo $wage
-}
 while [ $totalworkingdays -lt $NO_OF_WORKING_DAYS ] && [ $totalworkinghours -lt $MAX_WORK_HOURS ]
 do
         empCheck=$(( RANDOM%3 ))
         totalworkingdays=$(($totalworkingdays + 1 ))
         empHrs="$( getWorkHours $empCheck )"
-#       totalworkingdays=$(( $totalworkingdays + $empHrs ))
-        empdailywage[$totalworkingdays]="$(caldailywage $empHrs)"
+#       totalworkinghours=$(( empHrs * totalworkingdays ))
+        totalworkinghours=$(( $totalworkingdays + $empHrs ))
+        dailywage[$totalworkingdays]=$(( empHrs * EMP_RATE_PER_HR ))
 done
-#salary=$(( $EMP_RATE_PER_HR * $totalworkinghours ))
-totalsalary="${caldailywage $totalworkonghours}"
-for i in ${!empdailywage[*]}
-do
-        echo $i:${empdailywage[$i]}
-done
+salary=$(( $EMP_RATE_PER_HR * $totalworkinghours ))
+echo ${!dailywage[*]}
+echo ${dailywage[*]}
