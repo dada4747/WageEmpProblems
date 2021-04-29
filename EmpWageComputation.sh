@@ -1,17 +1,23 @@
 #! /bin/bash -x
 
-#Constants
-IS_PRESENT_HALF_HR=1
-IS_PRESENT_FULL_HR=2
-EMP_RATE_PER_HR=20
+IS_PRESENT_FULL_TIME=1
+IS_PRESENT_PART_TIME=2
+WAGE_PER_HT=20
+MAX_WORKING_DAYS=20
+totalworkinghours=0
+totalworkingdays=0
 
-#Variables
-empCheck=$(( RANDOM % 3 ))
+while [ $totalworkingdays != $MAX_WORKING_DAYS ]
+do
+        employeecheck=$((RANDOM%3))
+        (( totalworkingdays++))
+        case $employeecheck in
+                $IS_PRESENT_FULL_TIME) empHrs=8;;
+                $IS_PRESENT_PART_TIME) empHrs=4;;
+                *) empHrs=0;;
+        esac
+        totalworkinghours=$(( totalworkinghours + empHrs ))
+done
+salary=$(( totalworkinghours * WAGE_PER_HR ))
+echo "$salary"
 
-#Selecion
-case $empCheck in
-        $IS_PRESENT_FULL_HR) empHrs=8 ;;
-        $IS_PRESENT_HALF_HR) empHrs=4 ;;
-        *) empHrs=0 ;;
-esac
-salary = $(( empHrs * EMP_RATE_PER_HR ))
